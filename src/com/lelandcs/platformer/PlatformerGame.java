@@ -17,7 +17,7 @@ public class PlatformerGame extends JFrame implements WindowListener {
 	public PlatformerGame() {
 		super("Platformer Game"); // argument - title of window
 
-		canvas = new PlatformerCanvas(FPS);
+		canvas = new PlatformerCanvas(this, FPS);
 		add(canvas); // add the game graphics panel to the JFrame
 		
 		addWindowListener(this); // keep track of events on the window
@@ -36,14 +36,18 @@ public class PlatformerGame extends JFrame implements WindowListener {
 		System.out.println("Platformer Game");
 		PlatformerGame game = new PlatformerGame();
 	}
+        
+        public void exit() {
+            canvas.setRunning(false);
+            System.exit(0);
+        }
 
 	public void windowActivated(WindowEvent e) {}
 
 	public void windowClosed(WindowEvent e) {}
 
 	public void windowClosing(WindowEvent e) {
-		canvas.setRunning(false);
-		System.exit(0);
+		exit();
 	}
 
 	public void windowDeactivated(WindowEvent e) {}

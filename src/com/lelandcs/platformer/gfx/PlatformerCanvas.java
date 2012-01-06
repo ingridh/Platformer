@@ -1,5 +1,6 @@
 package com.lelandcs.platformer.gfx;
 
+import com.lelandcs.platformer.PlatformerGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,7 +29,11 @@ public class PlatformerCanvas extends Canvas {
     
     public HashMap<String, Font> fonts;
     
-    public PlatformerCanvas(int fps) {
+    public PlatformerGame master;
+    
+    public PlatformerCanvas(PlatformerGame master, int fps) {
+        this.master = master;
+        
         System.out.println("Desired FPS: " + fps);
         setDesiredFPS(fps);
 		
@@ -53,8 +58,7 @@ public class PlatformerCanvas extends Canvas {
 	       public void keyPressed(KeyEvent e) {
 	            int keyCode = e.getKeyCode();
 	            if (keyCode == KeyEvent.VK_ESCAPE) {
-	            	setRunning(false);
-	      	   	System.exit(0);
+	            	master.exit();
 	            }
                }});
     }
@@ -62,7 +66,6 @@ public class PlatformerCanvas extends Canvas {
     private void loadFonts() {
         fonts = new HashMap<String, Font>();
         Font f1 = new Font("SansSerif", Font.PLAIN, 24);
-        System.out.println(f1.getFamily());
         fonts.put(f1.getFamily(), f1);
     }
 
