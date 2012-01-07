@@ -10,31 +10,31 @@ import javax.swing.JFrame;
  */
 public class PlatformerGame extends JFrame implements WindowListener {
         
-        private static final int FPS = 40;
+        private static final int FPS = 60;
         
 	private PlatformerCanvas canvas;
 
 	public PlatformerGame() {
-		super("Platformer Game"); // argument - title of window
+            super("Platformer Game"); // argument - title of window
 
-		canvas = new PlatformerCanvas(this, FPS);
-		add(canvas); // add the game graphics panel to the JFrame
-		
-		addWindowListener(this); // keep track of events on the window
-		
-		pack(); // fixes window size
-		
-		setResizable(false); // sets the window unresizable
-		
-		setVisible(true); // sets the window visible
-		
-		setLocationRelativeTo(null); // centers the window 
+            canvas = new PlatformerCanvas(this, FPS);
+            add(canvas); // add the game graphics panel to the JFrame
+            
+            pack(); // fixes window size
+
+            addWindowListener(this); // keep track of events on the window
+
+            setResizable(false); // sets the window unresizable
+
+            setVisible(true); // sets the window visible
+
+            setLocationRelativeTo(null); // centers the window 
 	}
         
         /* Start point */
         public static void main(String[] args) {
-		System.out.println("Platformer Game");
-		PlatformerGame game = new PlatformerGame();
+            System.out.println("Platformer Game");
+            PlatformerGame game = new PlatformerGame();
 	}
         
         public void exit() {
@@ -47,7 +47,7 @@ public class PlatformerGame extends JFrame implements WindowListener {
 	public void windowClosed(WindowEvent e) {}
 
 	public void windowClosing(WindowEvent e) {
-		exit();
+            exit();
 	}
 
 	public void windowDeactivated(WindowEvent e) {}

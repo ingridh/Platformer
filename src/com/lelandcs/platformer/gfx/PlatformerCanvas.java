@@ -10,6 +10,9 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.util.HashMap;
 
 /**
@@ -37,40 +40,58 @@ public class PlatformerCanvas extends Canvas {
         System.out.println("Desired FPS: " + fps);
         setDesiredFPS(fps);
 		
-	setPreferredSize(new Dimension(CWIDTH, CHEIGHT));
-		
-	setBackground(Color.white);
+	setPreferredSize(new Dimension(CWIDTH-10, CHEIGHT-10));
 		
 	setFocusable(true);
 	requestFocus();
-	addKeyInput();
-        
-        loadFonts();
         
         currentState = State.INMENU; // set the state to being in the menu
+        
+        init();
     }
     
-    private void addKeyInput() {
+    /* Initialize components */
+    private void init() {
+        addInput();
+        loadFonts();
+    }
+    
+    private void addInput() {
         addKeyListener( new KeyAdapter() {
-	       public void keyReleased(KeyEvent e) {
-	             
-	       }
-	       public void keyPressed(KeyEvent e) {
-	            int keyCode = e.getKeyCode();
-	            if (keyCode == KeyEvent.VK_ESCAPE) {
-	            	master.exit();
-	            }
-               }});
+            public void keyReleased(KeyEvent e) {
+	            
+            }
+            public void keyPressed(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                if (keyCode == KeyEvent.VK_ESCAPE) {
+                    master.exit();
+                }
+            }
+        });
+        addMouseMotionListener( new MouseMotionAdapter() {
+            public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                // input handling here
+            }
+        });
+        addMouseListener( new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                // input handling here
+            }
+        });
     }
     
     private void loadFonts() {
         fonts = new HashMap<String, Font>();
-        Font f1 = new Font("SansSerif", Font.PLAIN, 24);
+        Font f1 = new Font("Arial", Font.ITALIC, 24);
         fonts.put(f1.getFamily(), f1);
     }
 
     public void update() {
-        
+
     }
     
     public void render() {
@@ -100,10 +121,10 @@ public class PlatformerCanvas extends Canvas {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
 	    // clear the background
-	    dbg.setColor(Color.white);
+	    dbg.setColor(Color.black);
 	    dbg.fillRect(0, 0, CWIDTH, CHEIGHT);
             
-            renderGameGraphics(dbg);
+            renderGameGraphics();
 	    
 	    Graphics g;
 	    try {
@@ -118,15 +139,14 @@ public class PlatformerCanvas extends Canvas {
                 e.printStackTrace();
             }
     }
-
+    
     /*
      * A separate function for rendering the game's graphics
      */
-    public void renderGameGraphics(Graphics2D g) {
-        // insert respective graphics here
+    public void renderGameGraphics() {
         if (currentState == State.INMENU) {
-           dbg.setFont(fonts.get("SansSerif"));
-	   dbg.setColor(Color.black);
+           dbg.setFont(fonts.get("Arial"));
+	   dbg.setColor(Color.white);
 	   dbg.drawString("In the Game Menu!", 300 , 300);
         }
         else if (currentState == State.INGAME) {

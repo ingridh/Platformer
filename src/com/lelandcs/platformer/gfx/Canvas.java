@@ -23,8 +23,7 @@ public abstract class Canvas extends JPanel implements Runnable {
 	private volatile boolean running = false; // indicates whether the game thread is running
 	
 	public void setDesiredFPS(int fps) {	
-		// simplified from (1000L/fps) * 1000000L
-		setPeriod(1000000000L/fps);
+		setPeriod(1000000000L/fps); // fps -> ns per frame
 	}
         
         public int getDesiredFPS() {
