@@ -8,17 +8,11 @@ import java.awt.Rectangle;
 /**
  * A basic button
  */
-public class Button {
+public class Button extends UIEntity {
     /* The offset between button's left edge and the start of the text */
     public int xoffset = 10;
     /* The offset between button's bottom edge and the bottom of the text */
     public int yoffset = 10;
-    
-    /* The position and dimensions of the button */
-    public int x;
-    public int y;
-    public int height;
-    public int width;
     
     /* The clickable region */
     private Rectangle rec;
@@ -28,32 +22,26 @@ public class Button {
     public Color highlightColor;
     public Color textColor;
 
-    /* The text of the button */
-    public String text;
     public Font font;
     
-    /* indicates if the mouse is over the button */
-    private boolean focused = false;
-    
-    
-    public Button(int x, int y, int width, int height, Color buttonColor, 
-            Color textColor, String text, Font font) {
+    public Button(int x, int y, Color buttonColor, 
+            Color textColor, String name, Font font) {
         this.x = x;
         this.y = y;
         
-        this.width = width;
-        this.height = height;
+        this.width = name.length() * font.getSize();
+        this.height = 10 + font.getSize();
         
         this.buttonColor = buttonColor;
         highlightColor = buttonColor.brighter();
         this.textColor = textColor;
-        this.text = text;
+        this.name = name;
         this.font = font;
         
         rec = new Rectangle(x, y, width, height);
     }
     
-    public void update(int mousex, int mousey) {
+    public void checkForClick(int mousex, int mousey) {
         if (rec.contains(mousex, mousey)) {
             focused = true;
         }
@@ -75,7 +63,7 @@ public class Button {
        
         g.setColor(textColor);
         g.setFont(font);
-        g.drawString(text, x + xoffset, y + height - yoffset);
+        g.drawString(name, x + xoffset, y + height - yoffset);
         
         g.setColor(initial);
     }
