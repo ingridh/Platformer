@@ -68,7 +68,7 @@ public class PlatformerCanvas extends Canvas {
     }
 
     public void update() {
-
+        currentState.update();
     }
     
     public void render() {

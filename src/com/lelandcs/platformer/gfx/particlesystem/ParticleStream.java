@@ -1,11 +1,13 @@
 package com.lelandcs.platformer.gfx.particlesystem;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 
 /**
  *
- * @author Paymon
  */
 public class ParticleStream {
     private int a1, a2;
@@ -44,7 +46,14 @@ public class ParticleStream {
 
         buffer = new ArrayList<Particle>();
 
-        Particle im = new Particle(str, x, y, life, false);
+        URL url = Particle.class.getClassLoader().getResource(str);
+        Particle im = null;
+        try {
+            im = new Particle(ImageIO.read(url), x, y, life, false);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            System.exit(1);
+        }
 
         p = new Particle[max];
         for (int i = 0; i<p.length;i++) {

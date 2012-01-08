@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.lelandcs.platformer.states;
 
 import com.lelandcs.platformer.gfx.PlatformerCanvas;
@@ -13,7 +9,6 @@ import java.awt.event.KeyEvent;
 
 /**
  *
- * @author Home
  */
 public class MainMenu extends GameState {
     
@@ -58,7 +53,7 @@ public class MainMenu extends GameState {
                 }
             }
         }
-    }
+    } 
     
     public void handleMouseMotion(int x, int y) {
         for (UIEntity e : uiEntities) {

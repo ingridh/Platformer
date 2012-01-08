@@ -5,9 +5,6 @@ import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 
 /**
  * 
@@ -18,7 +15,6 @@ public class Particle implements Cloneable {
     private float age = 0;
 
     private BufferedImage origimg, img, render;
-    private String imgloc;
 
     public float x = 0;
     public float y = 0;
@@ -44,21 +40,16 @@ public class Particle implements Cloneable {
         dead = false;
     }
     
-    public Particle(String imgloc, float x, float y, int life_span
+    public Particle(BufferedImage image, float x, float y, int life_span
             , boolean rotate) {
-        URL url = Particle.class.getClassLoader().getResource(imgloc);
-        try {
-            img = ImageIO.read(url);
-            origimg = ImageIO.read(url);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            System.exit(1);
-        }
+        img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        img.setData(image.getData());
+        origimg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        origimg.setData(image.getData());
 
-        render = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+        render = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
         clearImage(render);
 
-        this.imgloc = imgloc;
         this.rotate = rotate;
 
         this.x = x;
@@ -129,7 +120,7 @@ public class Particle implements Cloneable {
     }
 
     public Particle clone() {
-        return new Particle(imgloc, x, y, life_span, rotate);
+        return new Particle(img, x, y, life_span, rotate);
     }
 
     public float getAge() {
